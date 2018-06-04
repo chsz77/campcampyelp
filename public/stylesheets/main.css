@@ -13,3 +13,7 @@
 #delete-form {
   display: inline
 }
+
+#campgroundIndex {
+  min-height: 100vh
+}

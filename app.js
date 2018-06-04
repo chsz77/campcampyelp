@@ -3,13 +3,13 @@ var express = require("express"),
 		bodyParser = require("body-parser"),
 		mongoose = require("mongoose"),
     passport = require("passport"),
-    flash = require("connect-flash"),
     LocalStrategy = require("passport-local"),   
+    flash = require("connect-flash"),
 		Campground = require("./models/campground"),
 		methodOverride = require("method-override"),
     Comment = require("./models/comment"),
     User = require("./models/user"),
-		seedDB = require("./seeds");
+    port = process.env.PORT || 3000;
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes = require("./routes/comments"),
@@ -46,7 +46,7 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes)
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(port, process.env.IP, function(){
     console.log("Started");
 });
 
