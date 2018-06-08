@@ -15,19 +15,20 @@ middleware.checkOwnership = function(req, res, next){
   if(req.isAuthenticated()){
     Campground.findById(req.params.id, function(err, foundCampground){
       if(err){
+        req.flash("error", err.message)
         res.redirect("back")
       } else {
-        if(foundCampground.author.id.equals(req.user.id)){
+        if(foundCampground.author.id && foundCampground.author.id.equals(req.user.id) || req.user.isAdmin){
           next()
         } else {
-          req.flash("error", "That sucks!");
+          req.flash("error", "You dont have any privilage to do that!");
           res.redirect("back")
         }
       }
        
     });
   } else {
-    req.flash("error", "That sucks!");
+    req.flash("error", "You dont have a privilage to to that");
     res.redirect("back")
   }
 }
@@ -48,10 +49,11 @@ middleware.checkCommentOwnership = function(req, res, next){
        
     });
   } else {
-    req.flash("error", "That sucks!");
+    req.flash("error", "You have no privilage to do that");
     res.redirect("back")
   }
 }
+
 
 module.exports = middleware
 

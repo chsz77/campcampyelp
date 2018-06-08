@@ -10,21 +10,21 @@ router.get("/", function(req, res){
     res.render("landing");
 });
 
-router.get('/generate-fake-data', function(req, res, next) {
-    for (var i = 0; i < 30; i++) {
-        var campground = new Campground()
+// router.get('/generate-fake-data', function(req, res, next) {
+//     for (var i = 0; i < 30; i++) {
+//         var campground = new Campground()
 
-        campground.image = faker.image.nature()
-        campground.name = faker.address.streetName()
-        campground.price = faker.commerce.price()
-        campground.description = faker.lorem.paragraph()
+//         campground.image = faker.image.nature()
+//         campground.name = faker.address.streetName()
+//         campground.price = faker.commerce.price()
+//         campground.description = faker.lorem.paragraph()
 
-        campground.save(function(err) {
-            if (err) throw err
-        })
-    }
-    res.redirect('/')
-})
+//         campground.save(function(err) {
+//             if (err) throw err
+//         })
+//     }
+//     res.redirect('/')
+// })
 
 //Auth
 router.get("/register", function(req, res){

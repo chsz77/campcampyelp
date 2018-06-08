@@ -1,12 +1,29 @@
 var express = require("express"),
     router = express.Router(),
     Campground = require("../models/campground"),
-    middleware = require("../middleware")
+    middleware = require("../middleware");
 
 //Index
 router.get("/", function(req, res){
-   	var perPage = 12
- 
+   	var perPage = 20
+ if(req.query.search){
+   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+   Campground
+        .find({'name': regex})
+        .skip(0)
+        .limit(perPage)
+        .exec(function(err, camps) {
+            Campground.count({'name': regex}).exec(function(err, count) {
+                if (err) return next(err)
+                res.render('campgrounds/index', {
+                    campgrounds:camps,
+                    current: 1,
+                    pages: Math.ceil(count / perPage)
+                })
+            })
+        })
+   
+ } else{
     Campground
         .find({})
         .skip(0)
@@ -21,10 +38,11 @@ router.get("/", function(req, res){
                 })
             })
         })
+  } 
 })
 
 router.get('/pages/:page', function(req, res, next) {
-    var perPage = 12
+    var perPage = 20
     var page = req.params.page || 1
 
     Campground
@@ -44,26 +62,24 @@ router.get('/pages/:page', function(req, res, next) {
 })
 
 
+
 //Post
 router.post("/", middleware.isLoggedIn, function(req, res){
-    var name = req.body.name;
-    var image = req.body.image;
-    var price = req.body.price;
-		var desc = req.body.description;
-    var author = {
-      id: req.user._id,
-      username: req.user.username
-    };
-    var newCampground = {name: name, image: image, price: price, description: desc, author: author};
-		Campground.create(newCampground, function(err, newlyCreated){
-			if(err){
-				console.log(err)
-			} else {
-				req.flash("success", "Added a new campground")
-        res.redirect("/campgrounds");
-			}
-		});
+  req.body.campground.author = {
+    id: req.user._id,
+    username: req.user.username
+  }
+  Campground.create(req.body.campground, function(err, campground) {
+    if (err) {
+      req.flash('error', err.message);
+      return res.redirect('back');
+    } else {
+      req.flash('success', 'Campground is added')
+      res.redirect('/campgrounds/' + campground.id);
+    }
+   });
 });
+                             
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
 	res.render("campgrounds/new");
@@ -115,7 +131,9 @@ router.delete("/:id", middleware.checkOwnership, function(req, res){
   });
 })
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 
 module.exports = router;
