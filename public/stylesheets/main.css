@@ -20,17 +20,6 @@ nav {
   top: 20px;
 }
 
-/* find */
-.list-group img{
-  max-height: 170px;
-  max-width: 200px;
-  margin-right: 20px
-}
-
-.description {
-  width: 100%
-}
-
 /* hero */
 /* #hero {
   margin-top: -8vh;
