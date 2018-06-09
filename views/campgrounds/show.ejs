@@ -1,14 +1,9 @@
 <% include ../partials/header %>
 
 <div class="container">
-  <%if(currentUser && currentUser.isAdmin){ %>
-  <p class="text-right text-muted">Admin is here</p>
-<% } %>
   <div class="row">
     <div class="col-md-3">
-      <p class="lead">
-        YelpCamp
-      </p>
+      <p class="lead">More Info</p>
       <div class="list-group">
         <div class="list-group-item active">
           Info 1
@@ -23,19 +18,15 @@
     </div>
     <div class="col-md-9">
       <div class="card">
-        <img class="img-fluid" src="<%= campground.image %>">
-        <div class="card-body">
-            <h4 class="float-right">$ <%= campground.price %>/night</h4>
+        <img class="card-img img-fluid" src="<%= campground.image %>">
+         <div class="card-body">
+            <h4 class="lead float-right">$<%= campground.price %>/night</h4>
             <h4><a><%= campground.name %></a></h4>
-            <p><%- campground.description %></p>
-            <p class="text-muted float-right"><em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
+            <p class="text-justify"><%- campground.description %></p>
+            <small class="text-muted float-right"><em>Submitted by <%= campground.author.username %></em>, <%= campground.date_formatted %></small>
             <% if(currentUser && campground.author.id && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-            <a class="btn btn-small btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-              <form id="delete-form" action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST">
-                <button class="btn btn-small btn-danger">
-                  Delete
-                </button>
-              </form>
+            <a class="btn btn-sm btn-outline-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+            <button data-toggle="modal" data-target="#delete" class="btn btn-sm btn-outline-danger">Delete</button>
             <% } %>          
            </div>
        </div>
@@ -52,12 +43,12 @@
             <div class="row">
               <div class="col-md-12">
                 <strong><%= comment.author.username %></strong>
-                <span class="float-right"><%= moment(comment.createdAt).fromNow() %></span>
+                <span class="float-right"><%= comment.date_formatted %></span>
                 <div><%-comment.text %></div>
                 <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
                 <div>
                   <a class = "btn btn-outline-warning btn-sm" href="/campgrounds/<%= campground._id %>/comments/<%= comment.id %>/edit">Edit</a>
-                  <form id="delete-form" action="/campgrounds/<%= campground._id%>/comments/<%= comment.id %>?_method=DELETE" method="POST">
+                  <form class="d-inline" action="/campgrounds/<%= campground._id%>/comments/<%= comment.id %>?_method=DELETE" method="POST">
                    <button class="btn btn-outline-danger btn-sm">Delete</button>
                   </form>
                 </div>
@@ -66,11 +57,12 @@
               </div>
             </div>  
           <% }) %>
+       </div>
       </div>
-     </div>
+    </div>
   </div>
 </div>
-  
+
 <!--add comment modal -->
 <div class="modal fade" id="addcomment">
   <div class="modal-dialog modal-lg">
@@ -92,10 +84,33 @@
     </div>
   </div>
 </div>
-</div>
-  
- <footer class="bg-light py-3 mt-5">
-<p class="text-bottom text-right my-1 mr-5">Copyright &copy; 2018 - Cahya Isra</p></footer> 
 
+<!--delete modal -->
+<div class="modal fade" id="delete">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="py-3 text-center">
+          <h5 class="modal-title">Are you sure?</h5>
+        </div>
+        <div class="modal-body text-center">
+            <form id="delete-form" action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-outline-danger px-5">Yes</button>
+            </form>
+            <button class="btn btn-outline-primary px-5" data-dismiss="modal">No</button>
+          <!--           <form action="/campgrounds/<%= campground._id %>/comments/"  method="POST">
+              <div class="form-group">
+                  <textarea class="form-control" rows="7" name="comment[text]" placeholder="Your Comment Here"></textarea>
+                  </div>
+ 								   	<div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+              </div>
+          </form> -->
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  
 
 <% include ../partials/footer %>

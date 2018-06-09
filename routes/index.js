@@ -7,7 +7,7 @@ var express = require("express"),
 
 //Index
 router.get("/", function(req, res){
-    res.render("landing");
+    res.redirect('/campgrounds');
 });
 
 // router.get('/generate-fake-data', function(req, res, next) {

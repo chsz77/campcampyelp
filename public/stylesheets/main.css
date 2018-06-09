@@ -1,28 +1,130 @@
-.thumbnail img {
+/* navbar */
+nav {
+  position: absolute;
   width: 100%;
+  z-index: 30
 }
 
-.thumbnail {
-  padding: 0;
-}
-
-.thumbnail .caption-full {
-  padding: 9px
-}
-
-#delete-form {
-  display: inline
-}
+/* index */
 
 #campgroundIndex {
   min-height: 50vh;
 }
 
-.showcase .card{
-  max-width: 250px
+#warning {
+  position: absolute;
+  width: 50%;
+  margin-left: 25%;
+  text-align: center;
+  z-index: 999;
+  top: 20px;
 }
-.showcase img {
-  background-size:cover;
-  height: 170px
+
+/* find */
+.list-group img{
+  max-height: 170px;
+  max-width: 200px;
+  margin-right: 20px
 }
+
+.description {
+  width: 100%
+}
+
+/* hero */
+/* #hero {
+  margin-top: -8vh;
+  height: 100vh;
+} */
+
+#content-bg{
+  border-radius: 10px
+}
+
+#hero #header1 {
+  text-align: center;
+  margin-top: 35vh;
+  margin-bottom: 10vh;
+  z-index: 1
+}
+
+#hero .btn{
+  padding-right: 50px;
+  padding-left: 50px
+}
+
+#hero .bg-overlay {
+  position: absolute;
+  background: rgba(0,0,0,0.3);
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+  top:0;
+  left:0;
+}
+
+#hero .bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index:-3;
+  top:0;
+  left:0;
+}
+#hero li {
+  position: absolute;
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  background: no-repeat center center;
+  background-size: cover;
+  opacity:0;
+  animation: imageAnimation 50s linear infinite;
+  z-index: -4;
+}
+
+#hero li:nth-child(1) { 
+  background-image: url(http://i.imgur.com/K3mPv14.jpg) 
+}
+#hero li:nth-child(2) { 
+  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+  animation-delay: 10s; 
+}
+#hero li:nth-child(3) { 
+  background-image: url(http://i.imgur.com/emvhOnb.jpg);
+  animation-delay: 20s; 
+}
+#hero li:nth-child(4) { 
+  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+  animation-delay: 30s; 
+}
+#hero li:nth-child(5) { 
+  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+  animation-delay: 40s; 
+}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+
+
+
+
+
+
+
 

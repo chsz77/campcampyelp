@@ -6,27 +6,9 @@ var express = require("express"),
 //Index
 router.get("/", function(req, res){
    	var perPage = 20
- if(req.query.search){
-   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-   Campground
-        .find({'name': regex})
-        .skip(0)
-        .limit(perPage)
-        .exec(function(err, camps) {
-            Campground.count({'name': regex}).exec(function(err, count) {
-                if (err) return next(err)
-                res.render('campgrounds/index', {
-                    campgrounds:camps,
-                    current: 1,
-                    pages: Math.ceil(count / perPage)
-                })
-            })
-        })
-   
- } else{
     Campground
         .find({})
-        .skip(0)
+        .sort({createdAt: -1})
         .limit(perPage)
         .exec(function(err, camps) {
             Campground.count().exec(function(err, count) {
@@ -38,7 +20,6 @@ router.get("/", function(req, res){
                 })
             })
         })
-  } 
 })
 
 router.get('/pages/:page', function(req, res, next) {
@@ -47,6 +28,7 @@ router.get('/pages/:page', function(req, res, next) {
 
     Campground
         .find({})
+        .sort({createdAt: -1})
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec(function(err, camps) {
@@ -61,7 +43,31 @@ router.get('/pages/:page', function(req, res, next) {
         })
 })
 
-
+// find
+router.get('/find', function(req, res){
+if(req.query.search){
+   var perPage = 20
+   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+   Campground
+        .find({'name': regex})
+        .sort({name: 'ascending'})
+        .limit(perPage)
+        .exec(function(err, camps) {
+            Campground.count({'name': regex}).exec(function(err, count) {
+                if (err) return next(err)
+                res.render('campgrounds/find', {
+                    campgrounds:camps,
+                    searchQuery: req.originalUrl.slice(25),
+                    current: 1,
+                    pages: Math.ceil(count / perPage)
+                })
+            })
+        })
+    } else {
+    res.redirect('/');
+ } 
+  
+}) 
 
 //Post
 router.post("/", middleware.isLoggedIn, function(req, res){

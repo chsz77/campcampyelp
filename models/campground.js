@@ -1,4 +1,5 @@
-var mongoose = require("mongoose")
+var mongoose = require("mongoose"),
+    moment = require('moment')
 
 var campgroundSchema = new mongoose.Schema({
 		name: String,
@@ -22,5 +23,13 @@ var campgroundSchema = new mongoose.Schema({
 			}
 		]
 });
+
+//virtual
+campgroundSchema
+  .virtual('date_formatted')
+  .get(function(){
+  return moment(this.createdAt).fromNow()
+})
+
 
 module.exports = mongoose.model("Campground", campgroundSchema)

@@ -1,4 +1,5 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    moment = require('moment')
 
 var commentSchema = new mongoose.Schema(
   {
@@ -15,5 +16,12 @@ var commentSchema = new mongoose.Schema(
       default: Date.now}
   }
 );
+
+//virtual
+commentSchema
+  .virtual('date_formatted')
+  .get(function(){
+  return moment(this.createdAt).fromNow()
+})
 
 module.exports = mongoose.model("Comment", commentSchema);
