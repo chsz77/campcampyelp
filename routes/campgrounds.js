@@ -46,25 +46,18 @@ router.get('/pages/:page', function(req, res, next) {
 // find
 router.get('/find', function(req, res){
 if(req.query.search){
-   var perPage = 20
    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
    Campground
         .find({'name': regex})
         .sort({name: 'ascending'})
-        .limit(perPage)
         .exec(function(err, camps) {
-            Campground.count({'name': regex}).exec(function(err, count) {
-                if (err) return next(err)
                 res.render('campgrounds/find', {
                     campgrounds:camps,
                     searchQuery: req.originalUrl.slice(25),
-                    current: 1,
-                    pages: Math.ceil(count / perPage)
                 })
             })
-        })
-    } else {
-    res.redirect('/');
+        } else {
+          res.redirect('/');
  } 
   
 }) 
