@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+<div class="container">
+<hr class="mt-4">
+  <form action="/campgrounds/find" method='GET' class="input-group mx-auto">
+    <input type="text" class="form-control mx-auto" name='search' placeholder='Find Your Next Campground'>
+    <span class="input-group-btn d-lg-block d-none"><button class="btn btn-primary">Search</button></span>
+  </form>
+<hr>
+   <p class="lead text-center">Search results for '<%=searchQuery%>'</p> 
+   <div class="row mb-5">
+        <div class="col">
+       <% campgrounds.forEach(function(campground){ %>
+            <div class="list-group">
+              <a class="list-group-item list-group-item-action d-flex flex-row" href= "/campgrounds/<%= campground._id %>">  
+                <img class="img-fluid card-img" src="<%= campground.image %>">
+                <div class="description">
+                  <span class="text-muted float-right">$<%= campground.price %>/night</span>
+                  <h5><%= campground.name %></h5>
+                  <p><%- campground.description.substr(0, 300) %></p>
+                </div>
+              </a>
+   		<% }); %>
+        </div>    
+      </div>
+    </div>
+  </div>
+</div>
+   
+
+<% include ../partials/footer %>
