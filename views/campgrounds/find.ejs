@@ -9,7 +9,7 @@
    <p class="lead text-center">Search results for <strong>'<%=searchQuery%>'</strong> </p> 
   <% if(campgrounds.length === 0) { %>
     <hr>  
-    <p class="text-center lead">We found nothing...</p>
+    <h5 class="text-center text-muted">We found nothing...</h5>
   <% }  %>
   <div class="row mb-5">
         <div class="col">
@@ -21,7 +21,7 @@
                   <div class="mt-2 col-md-9">
                     <span class="text-muted float-right">$<%= campground.price %>/night</span>
                     <h5><%= campground.name %></h5>
-                    <p class="text-justify"><%- campground.description.substr(0, 300) %></p>
+                    <p class="text-justify"><%- campground.description.substr(0, 300) %>...</p>
                   </div>
                 </div>
               </a>
