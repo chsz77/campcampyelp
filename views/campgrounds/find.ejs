@@ -1,13 +1,17 @@
 <% include ../partials/header %>
 <div class="container">
 <hr class="mt-4">
-  <form action="/campgrounds/find" method='GET' class="input-group mx-auto">
-    <input type="text" class="form-control mx-auto" name='search' placeholder='Find Your Next Campground'>
+  <form action="/campgrounds/find" method='GET' class="input-group mx-auto w-75">
+    <input type="text" class="form-control mx-auto " name='search' placeholder='Find Your Next Campground'>
     <span class="input-group-btn d-lg-block d-none"><button class="btn btn-primary">Search</button></span>
   </form>
 <hr>
-   <p class="lead text-center">Search results for '<%=searchQuery%>' </p> 
-   <div class="row mb-5">
+   <p class="lead text-center">Search results for <strong>'<%=searchQuery%>'</strong> </p> 
+  <% if(campgrounds.length === 0) { %>
+    <hr>  
+    <p class="text-center lead">We found nothing...</p>
+  <% }  %>
+  <div class="row mb-5">
         <div class="col">
        <% campgrounds.forEach(function(campground){ %>
             <div class="list-group">
