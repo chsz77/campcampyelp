@@ -2,8 +2,7 @@ var express = require("express"),
     router = express.Router(),
     passport = require("passport"),
     User = require("../models/user"),
-    Campground = require("../models/campground"),
-    faker = require('faker');
+    Campground = require("../models/campground");
 
 //Index
 router.get("/", function(req, res){
