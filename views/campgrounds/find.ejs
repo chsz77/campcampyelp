@@ -6,11 +6,12 @@
     <span class="input-group-btn d-lg-block d-none"><button class="btn btn-primary">Search</button></span>
   </form>
 <hr>
+  <% if(searchQuery && !campgrounds.length === 0) { %>
    <p class="lead text-center">Search results for <strong>'<%=searchQuery%>'</strong> </p> 
-  <% if(campgrounds.length === 0) { %>
+  <% } else { %>
+    <p class="lead text-center">There's no result</h5>
     <hr>  
-    <h5 class="text-center text-muted">We found nothing...</h5>
-  <% }  %>
+    <% }  %>
   <div class="row mb-5">
         <div class="col">
        <% campgrounds.forEach(function(campground){ %>
@@ -29,8 +30,37 @@
         </div>    
       </div>
     </div>
+
+<div>
+  <% if (pages > 1) { %>
+      <ul class="pagination justify-content-end">
+          <% if (current == 1) { %>
+              <li class="page-item disabled"><a class="page-link">First</a></li>
+          <% } else { %>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/1/find?search=<%=url%>">First</a></li>
+          <% } %>
+          <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+          <% if (i !== 1) { %>
+              <li class="page-item disabled"><a class="page-link">...</a></li>
+          <% } %>
+          <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+              <% if (i == current) { %>
+                  <li class="page-item active"><a class="page-link"><%= i %></a></li>
+              <% } else { %>
+                  <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= i %>/find?search=<%=url%>"><%= i %></a></li>
+              <% } %>
+              <% if (i == Number(current) + 4 && i < pages) { %>
+                  <li class="page-item disabled"><a class="page-link">...</a></li>
+              <% } %>
+          <% } %>
+          <% if (current == pages) { %>
+              <li class="page-item disabled"><a class="page-link">Last</a></li>
+          <% } else { %>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= pages %>/find?search=<%=url%>">Last</a></li>
+          <% } %>
+      </ul>
+  <% } %>
   </div>
 </div>
-   
 
 <% include ../partials/footer %>
