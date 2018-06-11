@@ -5,51 +5,10 @@ var express = require("express"),
 
 //Index
 router.get("/", function(req, res){
-   	var perPage = 20
-    Campground
-        .find({})
-        .sort({createdAt: -1})
-        .limit(perPage)
-        .exec(function(err, camps) {
-            Campground.count().exec(function(err, count) {
-                if (err) return next(err)
-                res.render('campgrounds/index', {
-                    campgrounds:camps,
-                    current: 1,
-                    pages: Math.ceil(count / perPage)
-                })
-            })
-        })
-})
-
-//index pagination
-router.get('/pages/:page', function(req, res, next) {
-    var perPage = 20
-    var page = req.params.page || 1
-
-    Campground
-        .find({})
-        .sort({createdAt: -1})
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
-        .exec(function(err, camps) {
-            Campground.count().exec(function(err, count) {
-                if (err) return next(err)
-                res.render('campgrounds/index', {
-                    campgrounds:camps,
-                    current: page,
-                    pages: Math.ceil(count / perPage)
-                })
-            })
-        })
-})
-
-// find
-router.get('/find', function(req, res){
-if(req.query.search){
+  var perPage = 20
+  var page = req.params.page || 1 
+  if(req.query.search){
    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-   var perPage = 20
-   var page = req.params.page || 1
    Campground
         .find({'name': regex})
         .skip((perPage * page) - perPage)
@@ -67,10 +26,65 @@ if(req.query.search){
                })   
             })
         } else {
-          res.redirect('/');
- } 
-  
-}) 
+          Campground
+            .find({})
+            .sort({createdAt: -1})
+            .limit(perPage)
+            .exec(function(err, camps) {
+                Campground.count().exec(function(err, count) {
+                    if (err) return next(err)
+                    res.render('campgrounds/index', {
+                        campgrounds:camps,
+                        current: 1,
+                        pages: Math.ceil(count / perPage)
+                    })
+                })
+            })
+    }
+})
+
+    
+//index pagination
+router.get('/pages/:page', function(req, res, next) {
+    var perPage = 20
+    var page = req.params.page || 1
+
+   if(req.query.search){
+   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+   Campground
+        .find({'name': regex})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, camps) {
+                Campground.count({'name': regex}).exec(function(err, count) {
+                  if(err) return next(err)
+                  res.render('campgrounds/find', {
+                    campgrounds:camps,
+                    searchQuery: req.query.search,
+                    current: page,
+                    pages: Math.ceil(count / perPage),
+                    url: req.query.search.replace(' ', '+'), 
+                })
+               })   
+            })
+        } else {
+          Campground
+              .find({})
+              .sort({createdAt: -1})
+              .skip((perPage * page) - perPage)
+              .limit(perPage)
+              .exec(function(err, camps) {
+                  Campground.count().exec(function(err, count) {
+                      if (err) return next(err)
+                      res.render('campgrounds/index', {
+                          campgrounds:camps,
+                          current: page,
+                          pages: Math.ceil(count / perPage)
+                      })
+                  })
+              })
+          }
+    }) 
 
 // find pagination
 router.get("/pages/:page/find", function(req, res){

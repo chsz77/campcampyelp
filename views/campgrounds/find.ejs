@@ -1,15 +1,15 @@
 <% include ../partials/header %>
 <div class="container">
 <hr class="mt-4">
-  <form action="/campgrounds/find" method='GET' class="input-group mx-auto w-75">
+  <form action="/campgrounds" method='GET' class="input-group mx-auto w-75">
     <input type="text" class="form-control mx-auto " name='search' placeholder='Find Your Next Campground'>
     <span class="input-group-btn d-lg-block d-none"><button class="btn btn-primary">Search</button></span>
   </form>
 <hr>
-  <% if(searchQuery && !campgrounds.length === 0) { %>
+  <% if (searchQuery && campgrounds.length != 0) { %>
    <p class="lead text-center">Search results for <strong>'<%=searchQuery%>'</strong> </p> 
   <% } else { %>
-    <p class="lead text-center">There's no result</h5>
+  <p class="lead text-center">There's no result</p>
     <hr>  
     <% }  %>
   <div class="row mb-5">
@@ -37,7 +37,7 @@
           <% if (current == 1) { %>
               <li class="page-item disabled"><a class="page-link">First</a></li>
           <% } else { %>
-              <li class="page-item"><a class="page-link" href="/campgrounds/pages/1/find?search=<%=url%>">First</a></li>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/1?search=<%=url%>">First</a></li>
           <% } %>
           <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
           <% if (i !== 1) { %>
@@ -47,7 +47,7 @@
               <% if (i == current) { %>
                   <li class="page-item active"><a class="page-link"><%= i %></a></li>
               <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= i %>/find?search=<%=url%>"><%= i %></a></li>
+                  <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= i %>?search=<%=url%>"><%= i %></a></li>
               <% } %>
               <% if (i == Number(current) + 4 && i < pages) { %>
                   <li class="page-item disabled"><a class="page-link">...</a></li>
@@ -56,7 +56,7 @@
           <% if (current == pages) { %>
               <li class="page-item disabled"><a class="page-link">Last</a></li>
           <% } else { %>
-              <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= pages %>/find?search=<%=url%>">Last</a></li>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= pages %>?search=<%=url%>">Last</a></li>
           <% } %>
       </ul>
   <% } %>
