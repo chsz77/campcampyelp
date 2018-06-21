@@ -5,6 +5,12 @@ nav {
   z-index: 30
 }
 
+/* alert */
+.alert {
+  background: rgb(191, 191, 191, 0.6)
+}
+
+
 /* index */
 
 #campgroundIndex {
@@ -73,22 +79,22 @@ nav {
 }
 
 #hero li:nth-child(1) { 
-  background-image: url(http://i.imgur.com/K3mPv14.jpg) 
+/*   background-image: url(http://i.imgur.com/K3mPv14.jpg)  */
 }
 #hero li:nth-child(2) { 
-  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+/*   background-image: url(http://i.imgur.com/SBEmFpv.jpg); */
   animation-delay: 10s; 
 }
 #hero li:nth-child(3) { 
-  background-image: url(http://i.imgur.com/emvhOnb.jpg);
+/*   background-image: url(http://i.imgur.com/emvhOnb.jpg); */
   animation-delay: 20s; 
 }
 #hero li:nth-child(4) { 
-  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+/*   background-image: url(http://i.imgur.com/2LSMCmJ.jpg); */
   animation-delay: 30s; 
 }
 #hero li:nth-child(5) { 
-  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+/*   background-image: url(http://i.imgur.com/TVGe0Ef.jpg); */
   animation-delay: 40s; 
 }
 

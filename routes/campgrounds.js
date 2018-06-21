@@ -21,7 +21,7 @@ router.get("/", function(req, res){
                     searchQuery: req.query.search,
                     current: page,
                     pages: Math.ceil(count / perPage),
-                    url: req.query.search.replace(' ', '+'), 
+                    url: '?search=' + req.query.search.replace(' ', '+'), 
                 })
                })   
             })
@@ -63,7 +63,7 @@ router.get('/pages/:page', function(req, res, next) {
                     searchQuery: req.query.search,
                     current: page,
                     pages: Math.ceil(count / perPage),
-                    url: req.query.search.replace(' ', '+'), 
+                    url: '?search=' + req.query.search.replace(' ', '+'), 
                 })
                })   
             })

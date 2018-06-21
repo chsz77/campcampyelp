@@ -37,7 +37,7 @@
           <% if (current == 1) { %>
               <li class="page-item disabled"><a class="page-link">First</a></li>
           <% } else { %>
-              <li class="page-item"><a class="page-link" href="/campgrounds/pages/1?search=<%=url%>">First</a></li>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/1<%=url%>">First</a></li>
           <% } %>
           <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
           <% if (i !== 1) { %>
@@ -47,7 +47,7 @@
               <% if (i == current) { %>
                   <li class="page-item active"><a class="page-link"><%= i %></a></li>
               <% } else { %>
-                  <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= i %>?search=<%=url%>"><%= i %></a></li>
+                  <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= i + url%>"><%= i %></a></li>
               <% } %>
               <% if (i == Number(current) + 4 && i < pages) { %>
                   <li class="page-item disabled"><a class="page-link">...</a></li>
@@ -56,7 +56,7 @@
           <% if (current == pages) { %>
               <li class="page-item disabled"><a class="page-link">Last</a></li>
           <% } else { %>
-              <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= pages %>?search=<%=url%>">Last</a></li>
+              <li class="page-item"><a class="page-link" href="/campgrounds/pages/<%= pages + url%>">Last</a></li>
           <% } %>
       </ul>
   <% } %>

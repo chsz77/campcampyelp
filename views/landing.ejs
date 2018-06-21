@@ -27,11 +27,9 @@
     </div>
     
     <ul class="slideshow">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <% for(let i = 0; i<6; i++){ %>
+      <li style="bacground: url("<%=campground[i].image%>")"></li>
+      <% } %>
     </ul>
 
 <% include partials/footer %>
