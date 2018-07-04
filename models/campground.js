@@ -2,9 +2,18 @@ var mongoose = require("mongoose"),
     moment = require('moment')
 
 var campgroundSchema = new mongoose.Schema({
-		name: String,
-		image: String,
-    price: String,
+		name: {
+		  type: String,
+		  required: true
+		},
+		image: {
+		  type: String,
+		  required: true
+		},
+    price: {
+		  type: String,
+		  required: true
+		},
 		description: String,
     lat: Number,
     lng: Number,

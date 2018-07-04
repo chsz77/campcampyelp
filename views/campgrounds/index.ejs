@@ -86,7 +86,9 @@
        <% campgrounds.forEach(function(campground){ %>
         <div class="showcase col-lg-3 col-md-4 col-sm-6 mb-4">
             <div class="card h-100">
+                <% if(campground.image.length > 20){ %>
                 <img class="card-img img-fluid h-100" src="<%= campground.image %>">
+                <% } %>
                 <div class="card-body">
                   <h4><a class="btn btn-outline-primary btn-block" href= "/campgrounds/<%= campground._id %>"><%= campground.name %></a></h4>
             </div>

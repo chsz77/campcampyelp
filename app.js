@@ -9,21 +9,19 @@ var express = require("express"),
 		methodOverride = require("method-override"),
     Comment = require("./models/comment"),
     User = require("./models/user"),
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || 8080;
 
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes = require("./routes/comments"),
     indexRoutes = require("./routes/index");
 
 mongoose.connect("mongodb://cahya:isra@ds235850.mlab.com:35850/webdev");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-// seedDB();
-//use moment
-app.locals.moment = require('moment')
 
 //Passport Config
 app.use(require("express-session")({

@@ -27,7 +27,10 @@ router.get("/", function(req, res){
 
 //Auth
 router.get("/register", function(req, res){
-  res.render("register")
+  if(req.isAuthenticated()){
+    res.redirect('/')
+  } else {
+  res.render("register")}
 })
 //Sign Up Logic
 router.post("/register", function(req, res){
@@ -47,8 +50,11 @@ router.post("/register", function(req, res){
 
 //Login
 router.get("/login", function(req, res){
-  res.render("login");
-});
+  if(req.isAuthenticated()){
+    res.redirect('/')
+  } else {
+  res.render("login")}
+})
 //Login logic
 router.post("/login", passport.authenticate("local", 
   {
