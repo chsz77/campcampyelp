@@ -27,12 +27,12 @@ var campgroundSchema = new mongoose.Schema({
     createdAt: { 
       type: Date, 
       default: Date.now},
-		comments: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "Comment"
-			}
-		]
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	]
 });
 
 //virtual
